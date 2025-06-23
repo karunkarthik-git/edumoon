@@ -1,0 +1,73 @@
+:root {
+  --neu-bg: #e0e5ec;
+  --neu-shadow-light: #ffffff 8px 8px 15px 0px, #a3b1c6 -8px -8px 15px 0px;
+  --neu-shadow-inset: inset 8px 8px 15px #a3b1c6, inset -8px -8px 15px #ffffff;
+  --neu-shadow-btn: 4px 4px 8px #a3b1c6, -4px -4px 8px #ffffff;
+  --neu-radius: 18px;
+  --neu-card-radius: 24px;
+}
+
+body {
+  background: var(--neu-bg);
+  min-height: 100vh;
+}
+
+.neu-card {
+  background: var(--neu-bg);
+  border-radius: var(--neu-card-radius);
+  box-shadow: var(--neu-shadow-light);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.2s;
+}
+
+.neu-card:active, .neu-card:focus-within {
+  box-shadow: var(--neu-shadow-inset);
+}
+
+.neu-btn {
+  background: var(--neu-bg);
+  border: none;
+  border-radius: var(--neu-radius);
+  box-shadow: var(--neu-shadow-btn);
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  color: #333;
+  transition: box-shadow 0.2s;
+}
+
+.neu-btn:active, .neu-btn:focus {
+  box-shadow: var(--neu-shadow-inset);
+}
+
+.neu-input, .neu-select {
+  background: var(--neu-bg);
+  border: none;
+  border-radius: var(--neu-radius);
+  box-shadow: var(--neu-shadow-btn);
+  padding: 0.5rem 1rem;
+  color: #333;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.neu-input:focus, .neu-select:focus {
+  box-shadow: var(--neu-shadow-inset);
+  outline: none;
+}
+
+.neu-progress {
+  background: var(--neu-bg);
+  border-radius: var(--neu-radius);
+  box-shadow: var(--neu-shadow-btn);
+  height: 20px;
+  overflow: hidden;
+}
+
+.neu-progress-bar {
+  height: 100%;
+  border-radius: var(--neu-radius);
+  background: linear-gradient(90deg, #36A2EB 0%, #FF6384 100%);
+  transition: width 0.3s;
+}

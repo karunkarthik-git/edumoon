@@ -1,0 +1,5 @@
+Hello, this is a sample text file.
+It contains multiple lines of text.
+This is the third line.
+
+This is a manual statment

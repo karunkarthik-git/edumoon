@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meme Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    </head>
+
+<body>
+    <div class="container">
+        <h1>Meme Generator</h1>
+
+        <!-- <input type="file" id="imageInput" multiple accept="image/*" required>  -->
+         <input type="file" id="imageInput" accept="image/*" required> 
+        <input type="text" id="topText" placeholder="Top Text" required>
+        <input type="text" id="bottomText" placeholder="Bottom Text" required>
+
+        <div class="style-panel">
+            <div>
+                <label for="fontSize">Font Size:</label>
+                <input type="range" id="fontSize" value="30" min="10" max="100">
+            </div>
+
+            <div>
+                <label for="fontColor">Font Color:</label>
+                <input type="color" id="fontColor" value="#ffffff">
+            </div>
+            
+
+            <div>
+                <label for="fontFamily">Font Family:</label>
+                <select id="fontFamily">
+                    <option value="Arial">Arial</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Impact">Impact</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+            </div>
+        </div>
+        
+        <button onclick="drawMeme()">Generate Meme</button>
+        <button onclick="downloadMeme()">Download meme</button>
+
+        <button id="toggleDark">Toggle Dark</button>
+        <canvas id="memeCanvas" width="500" height="600"></canvas>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Playground</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+        <h1>CSS Playground</h1>
+        <p>List of examples</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#selectors">Selectors</a></li>
+            <li><a href="#box-model">Box Model</a></li>
+            <li><a href="#flexbox">Flexbox</a></li>
+            <li><a href="#grid">Grid</a></li>
+            <li><a href="#animations">Animations</a></li>
+            <li><a href="#advanced-concepts">Advanced</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="selectors" class="concept-section">
+            <h2>Selectors</h2>
+            <div class="example-box">
+                <p class="highlight">This is the highlighted text</p>
+                <p id="special">This is the selected by ID </p>
+                <div class="nested"><p>This is the nested</p></div>
+            </div>
+
+        </section>
+
+        <section id="box-model" class="concept-section">
+            <h2>Box Model</h2>
+            <div class="box-model-example">
+                <div class="content">Content</div>
+                <div class="padding">Padding</div>
+                <div class="border">Border</div>
+                <div class="margin">Margin</div>
+            </div>
+        </section>
+
+        <section id="flexbox" class="concept-section">
+            <h2>Flexbox</h2>
+            <div class="flex-container">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+                <div class="flex-item">Item 4</div>
+                <div class="flex-item">Item 5</div>
+            </div>
+        </section>
+
+        <section id="grid" class="concept-section">
+            <h2>Grid</h2>
+            <div class="grid-container">
+                <div class="grid-item">1</div>
+                <div class="grid-item">2</div>
+                <div class="grid-item">3</div>
+                <div class="grid-item">4</div>
+                <div class="grid-item">5</div>
+                <div class="grid-item">4</div>
+                <div class="grid-item">5</div>
+            </div>
+        </section>
+
+        <section id="animations" class="concept-section">
+            <h2>Animations</h2>
+            <b>Bold</b>
+            <u>Underlined</u>
+            <i>Italic</i>
+            <sub>Subscript</sub>
+            <sup>Superscript</sup>
+            <s>L</s>
+            <div class="animation-example">
+                <div class="animation-box"></div>
+            </div>
+        </section>
+
+        <section id="advanced-concepts" class="concept-section">
+            <h2>Advanced Concepts</h2>
+            
+            <div class="variables-demo">
+                <h2>CSS Variables</h2>
+                <div class="variable-box"> This statment uses css variables </div>
+            </div>
+            <div class="pseudo-elements">
+                <h2>Pseudo-elements</h2>
+                <div class="pseudo-element-example">
+                    <p>This is a paragraph with a pseudo-element.</p>
+                    <p>This is a paragraph with a pseudo-element.</p>
+                </div>
+            </div>
+            <div class="transform-example">
+                <h2>Transform</h2>
+                <div class="transform-box">Hover</div>
+            </div>
+
+            <div class="filter-demo">
+                <h2>Filter</h2>
+                <img src="https://picsum.photos/200" class="filter-image" alt="Placeholder Image">
+            </div>
+
+            <div class="cursor-demo">
+                <h2>Cursors</h2>
+                <div class="cursor-box pointer">Pointer</div>
+                <div class="cursor-box wait">Wait</div>
+                <div class="cursor-box text">Text</div>
+                <div class="cursor-box move">Move</div>
+            </div>
+
+            <div class="inheritance-demo">
+                <h2>Inheritance</h2>
+                <div class="parent">
+                    <p>This text is inherited from the parent.</p>
+                    <div class="child override">
+                        <p>This text is also inherited, but can be overridden.</p>
+                    </div>
+                    <p>This text is inherited from the parent and below child.</p>
+                </div>
+
+            </div>
+    </main>
+</body>
+</html>

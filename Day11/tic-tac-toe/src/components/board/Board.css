@@ -1,0 +1,16 @@
+.board-row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.square {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #999;
+    font-size: 24px;
+    cursor: pointer;
+}

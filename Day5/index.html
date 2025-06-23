@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Day 5 - JavaScript Basics</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Task Management</h1>
+                <div class="task-input">
+                    <input type="text" id="taskInput" placeholder="Add a new task...">
+                    <button id="addTaskButton">Add Task</button>
+                </div>
+            </header>
+
+            <main>
+                <div class="filters">
+                    <select id="filterTasks">
+                        <option value="all">All Tasks</option>
+                        <option value="completed">Completed Tasks</option>
+                        <option value="pending">Pending Tasks</option>
+                    </select>
+                    <input type="text" id="searchTask" placeholder="Search tasks...">
+                </div>
+
+                <ul id="tasksList" class="task-list">
+                    <!-- Task items will be dynamically added here -->
+                </ul>
+            </main>
+
+            <footer>
+                <div class="task-info">
+                    <span id="taskCount">0 tasks</span>
+                    <button id="clear-completed">Clear Completed</button>
+                </div>
+            </footer>
+        </div>
+
+        <template id="taskTemplate">
+            <li class="task-item">
+                <input type="checkbox" class="task-checkbox">
+                <span class="task-text"></span>
+                <button class="delete-task">X</button>
+            </li>
+        </template>
+
+        <script src="script.js"></script>
+    </body>
+</html>
