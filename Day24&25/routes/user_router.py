@@ -1,3 +1,4 @@
+from uuid import uuid4
 from fastapi import APIRouter, Header, HTTPException
 from models.user import User, UserLogin
 from db import db
@@ -11,13 +12,14 @@ async def create_user(user: User):
     if user_exists:
         raise HTTPException(status_code=400, detail="User with this email already exists")
     user.password = get_hashed_password(user.password)
+    user.user_id = str(uuid4())
     result = await db.users.insert_one(user.dict())
     print(f"User created with id: {result}")
     return {
         "status": "success",
         "message": "User created successfully",
         "data": {
-            "id": str(result.inserted_id),
+            "id": user.user_id,
             "email": user.email,
         }
     }

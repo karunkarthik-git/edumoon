@@ -1,11 +1,10 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, BeforeValidator
 from datetime import datetime
-
-from pydantic import BaseModel, Field
-from datetime import datetime
-from typing import Optional, List
+from bson import ObjectId
+from typing import Optional, Annotated, List
 
 class Post(BaseModel):
+    post_id: Optional[str]
     type: str
     title: str
     content: str

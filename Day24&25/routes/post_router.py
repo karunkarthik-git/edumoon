@@ -1,3 +1,4 @@
+from uuid import uuid4
 from fastapi import APIRouter, Header, HTTPException, File, UploadFile, Form
 from db import db
 from cloudinary_util import upload_file_to_cloudinary
@@ -36,6 +37,7 @@ async def create_post(
         "title": title,
         "content": content,
         "file_url": file_url,
+        "post_id": str(uuid4()),
         "tags": tags_list,
         "created_by": user_data.get('email'),
         "created_at": datetime.now()
@@ -72,4 +74,17 @@ async def get_posts():
     return {
         "status": "success",
         "data": await db.posts.find({}, {"_id": 0}).to_list(length=None)
+    }
+
+
+@router.get("/{post_id}/comments", response_model=dict)
+async def get_comments(post_id: str):
+    post_exists = await db.posts.count_documents({"post_id": post_id}) > 0
+    if not post_exists:
+        raise HTTPException(status_code=404, detail="Post not found")
+    
+    comments = await db.comments.find({"post_id": post_id}, {"_id": 0}).sort({"created_at": 1}).to_list(length=None)
+    return {
+        "status": "success",
+        "data": comments
     }
