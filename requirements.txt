@@ -6,3 +6,4 @@ bcrypt
 PyJWT
 cloudinary
 python-multipart
+gunicorn==19.7.1
