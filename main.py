@@ -5,6 +5,7 @@ from routes.post_router import router as post_router
 from routes.comment_router import router as comment_router
 import os
 from middleware import AuthMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Student Collaboration App",
@@ -16,6 +17,13 @@ app = FastAPI(
 async def home():
     return {"message": "Welcome to the Student Collaboration App!"}
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
+)
 app.add_middleware(AuthMiddleware)
 app.include_router(user_router, prefix="/api/v1/users", tags=["users"])
 app.include_router(post_router, prefix="/api/v1/posts", tags=["posts"])
