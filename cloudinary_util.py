@@ -1,9 +1,9 @@
 import cloudinary
 
 cloudinary.config(
-cloud_name = "your_folder_name",
-api_key = "your_api_key",
-api_secret = "your_api_secret",
+cloud_name = "platform-cloud",
+api_key = "288712169677339",
+api_secret = "IP5nQz5QgE9J5ui7tyz_g7fVdHc",
 )
 
 import cloudinary.uploader
