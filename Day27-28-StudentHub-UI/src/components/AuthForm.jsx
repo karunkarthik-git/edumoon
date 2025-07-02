@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { Link, useLocation } from 'react-router';
 import { use, useState } from 'react';
 import axios from 'axios';
+import Loader from './Loader';
 
 const AuthForm = (props) => {
     const { isLogin } = props;
@@ -13,9 +14,12 @@ const AuthForm = (props) => {
         name: '',
         bio: ''
     });
+    const [loader, setLoader] = useState(false);
+    const isAuthenticated = localStorage.getItem('token') != null;
 
     const triggerAPI = (payload) => {
         const url = import.meta.env.VITE_SH_BE_URI + `api/v1/users/${isLogin ? 'login' : 'sign-up'}`;
+        setLoader(true);
         axios.post(url, payload)
             .then(response => {
                 if (!isLogin && response.status === 200) {
@@ -29,6 +33,8 @@ const AuthForm = (props) => {
             .catch(error => {
                 alert('An error occurred. Please try again.');
                 console.error('API error:', error);
+            }).finally(() => {
+                setLoader(false);
             });
     }
 
@@ -54,8 +60,14 @@ const AuthForm = (props) => {
         }
     }
 
+    if (isAuthenticated) {
+        window.location.href = '/';
+        return null; // Prevent rendering the form if already authenticated
+    }
+
     return (
         <>
+        {loader && <Loader/>}
         <div className='container mt-5'>
             <h1 className='text-center'>{isLogin ? 'Login' : 'Sign Up'}</h1>
             <br />

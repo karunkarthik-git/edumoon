@@ -16,6 +16,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
         ]
     
     async def dispatch(self, request: Request, call_next):
+        if request.method == "OPTIONS":
+            return await call_next(request)
+        
         # Skip authentication for excluded paths
         if request.url.path in self.exclude_paths:
             return await call_next(request)

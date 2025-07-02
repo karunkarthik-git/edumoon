@@ -6,6 +6,8 @@ import { Link } from 'react-router';
 
 function NavigationBar () {
 
+  const isAuthenticated = localStorage.getItem('token') != null;
+
 
   return (
     <>
@@ -14,9 +16,9 @@ function NavigationBar () {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Item className=''> <Link to="/">Home</Link> </Nav.Item>
-            <Nav.Item> <Link to="/login">Login</Link> </Nav.Item>
-            <Nav.Item> <Link to="/signup">Sign Up</Link> </Nav.Item>
-            <div style={{color:"white"}} onClick={() => { localStorage.removeItem('token'); window.location.href = '/login'; }}>Logout</div>
+            {!isAuthenticated && <Nav.Item> <Link to="/login">Login</Link> </Nav.Item>}
+            {!isAuthenticated && <Nav.Item> <Link to="/signup">Sign Up</Link> </Nav.Item>}
+            {isAuthenticated && <div className='p-l-5' style={{color:"white"}} onClick={() => { localStorage.removeItem('token'); window.location.href = '/login'; }}>Logout</div>}
           </Nav>
         </Container>
       </Navbar>
