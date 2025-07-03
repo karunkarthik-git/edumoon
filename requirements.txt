@@ -6,3 +6,4 @@ bcrypt
 PyJWT
 cloudinary
 python-multipart
+python-dotenv

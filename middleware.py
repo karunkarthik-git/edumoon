@@ -8,6 +8,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         super().__init__(app)
         # Paths that don't require authentication
         self.exclude_paths = exclude_paths or [
+            "/home",
             "/docs",
             "/redoc", 
             "/openapi.json",

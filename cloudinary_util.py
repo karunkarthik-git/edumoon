@@ -1,9 +1,10 @@
 import cloudinary
+from env import CLOUD_ENV, CLOUD_API_KEY, CLOUD_API_SECRET
 
 cloudinary.config(
-cloud_name = "platform-cloud",
-api_key = "288712169677339",
-api_secret = "IP5nQz5QgE9J5ui7tyz_g7fVdHc",
+    cloud_name=CLOUD_ENV,
+    api_key=CLOUD_API_KEY,
+    api_secret=CLOUD_API_SECRET,
 )
 
 import cloudinary.uploader

@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from routes.user_router import router as user_router
 from routes.post_router import router as post_router
 from routes.comment_router import router as comment_router
-import os
+from env import TEST_KEY
 from middleware import AuthMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -26,6 +26,6 @@ app.include_router(user_router, prefix="/api/v1/users", tags=["users"])
 app.include_router(post_router, prefix="/api/v1/posts", tags=["posts"])
 app.include_router(comment_router, prefix="/api/v1/comments", tags=["comments"])
 
-@app.get("/", response_model=dict)
+@app.get("/home", response_model=dict)
 async def home():
-    return {"message": "Welcome to the Student Collaboration App!"}
+    return {"message": TEST_KEY}
