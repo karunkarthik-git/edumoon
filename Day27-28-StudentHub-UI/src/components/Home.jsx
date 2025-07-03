@@ -15,6 +15,12 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
     const [createPostModal, setCreatePostModal] = useState(false);
+    const isAuthenticated = localStorage.getItem('token') != null;
+
+    if (!isAuthenticated) {
+        window.location.href = '/login';
+        return null;
+    }
 
     const fetchPosts = async () => {
         setLoader(true);
