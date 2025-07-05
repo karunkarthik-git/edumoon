@@ -1,0 +1,5 @@
+streamlit
+pypdf
+requests
+python-dotenv
+huggingface_hub
