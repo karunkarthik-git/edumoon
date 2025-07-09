@@ -1,7 +1,6 @@
 // Utility to fetch Google Sheets data as JSON
 // Sheet must be published to the web or shared publicly for this to work without authentication
-
-const SHEET_ID = '1tky7mE0sBMhXOtlu2Ger7AHUZy1SR39VGKo_oUyNojQ';
+const SHEET_ID = import.meta.env.VITE_SHEET_ID;
 const SHEET_GID = '0'; // Default first sheet
 
 // Returns a Promise resolving to an array of row objects
