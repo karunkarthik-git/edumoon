@@ -192,7 +192,7 @@ function App() {
   return (
     <div className="instagram-theme">
       <div className="header-bar">
-        <h1 className="main-title">📚 Edumoon Assignment Submissions</h1>
+        <h1 className="main-title">📚 Edumoon Results</h1>
         <div className="header-controls">
           <div className="search-bar-wrapper">
             <input
