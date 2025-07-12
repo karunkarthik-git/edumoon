@@ -64,28 +64,17 @@ function App() {
   const scoreFiltered = filtered.filter(u => {
     if (scoreFilter === 'all') return true;
     
-    // Check for flagged filter
+    // Check for flagged filter based on S1-S4 being 0
+    const sKeys = ['S1', 'S2', 'S3', 'S4'];
+    const isFlagged = sKeys.some(sk => (u[sk] !== undefined && String(u[sk]).trim() === '0'));
+    // Always show flagged users in their score bracket as well
     if (scoreFilter === 'flagged') {
-      const remarksCol = Object.keys(u).find(key => key.toLowerCase().includes('remarks'));
-      if (remarksCol) {
-        return u[remarksCol]?.toString().toLowerCase().includes('flagged');
-      }
-      return false;
+      return isFlagged;
     }
-    
-    // For score-based filters, exclude flagged submissions
-    const remarksCol = Object.keys(u).find(key => key.toLowerCase().includes('remarks'));
-    if (remarksCol && u[remarksCol]?.toString().toLowerCase().includes('flagged')) {
-      return false; // Exclude flagged submissions from score-based filters
-    }
-    
     // Find score column in the data
     const scoreCol = Object.keys(u).find(key => key.toLowerCase().includes('score'));
     if (!scoreCol) return true;
-    
-    // Parse score from "x/10" format
-    const score = parseFloat(u[scoreCol]?.toString().split('/')[0] || '0');
-    
+    const score = parseFloat(u[scoreCol] || '0');
     switch (scoreFilter) {
       case 'excellent': return score >= 9;
       case 'good': return score >= 7 && score < 9;
@@ -101,12 +90,9 @@ function App() {
       // Find score column in the data
       const scoreColA = Object.keys(a).find(key => key.toLowerCase().includes('score'));
       const scoreColB = Object.keys(b).find(key => key.toLowerCase().includes('score'));
-      
       if (scoreColA && scoreColB) {
-        // Parse score from "x/10" format
-        const scoreA = parseFloat(a[scoreColA]?.toString().split('/')[0] || '0');
-        const scoreB = parseFloat(b[scoreColB]?.toString().split('/')[0] || '0');
-        
+        const scoreA = parseFloat(a[scoreColA] || '0');
+        const scoreB = parseFloat(b[scoreColB] || '0');
         return sortBy === 'score-asc' ? scoreA - scoreB : scoreB - scoreA;
       }
     } else if (sortBy === 'name-asc' || sortBy === 'name-desc') {
@@ -148,16 +134,16 @@ function App() {
     }));
   };
 
+  // Render cell value (revert to candidate info + links as before)
   const renderCellValue = (user, col, userIdx) => {
     if (col.toLowerCase() === 'score') {
       return <span className="score-text">{user[col]}</span>;
     }
-    
     if (col.toLowerCase() === 'remarks') {
       const key = `${userIdx}-${col}`;
       const isVisible = tooltipVisible[key];
-      const isFlagged = user[col]?.toString().toLowerCase().includes('flagged');
-      
+      const sKeys = ['S1', 'S2', 'S3', 'S4'];
+      const isFlagged = sKeys.some(sk => (user[sk] !== undefined && String(user[sk]).trim() === '0'));
       return (
         <div style={{ position: 'relative' }}>
           <div 
@@ -174,7 +160,6 @@ function App() {
         </div>
       );
     }
-    
     if (typeof user[col] === 'string' && user[col].startsWith('http')) {
       return (
         <a className="modern-link" href={user[col]} target="_blank" rel="noopener noreferrer">
@@ -183,7 +168,6 @@ function App() {
         </a>
       );
     }
-    
     return user[col];
   };
 
@@ -253,20 +237,66 @@ function App() {
           {displayUsers.map((user, idx) => (
             <div className="user-card" key={idx}>
               <div className="user-card-sno">{user.sno}</div>
-              {displayColumns.filter(col => col !== 'sno').map((col, i) => (
-                <div key={i}>
-                  <div className="user-card-row">
-                    <span className="user-card-label">{col.replace(/([A-Z])/g, ' $1').trim()}</span>
-                    <span className="user-card-value">
-                      {renderCellValue(user, col, idx)}
-                    </span>
-                  </div>
-                  {/* Add divider after college and before score */}
-                  {col.toLowerCase().includes('college') && (
-                    <div className="section-divider"></div>
-                  )}
-                </div>
-              ))}
+              {displayColumns.filter(col => col !== 'sno').map((col, i) => {
+                // Prevent generic rendering of assignment links and scores
+                if (["s1", "s2", "s3", "s4", "a1", "a2", "a3", "a4"].includes(col.toLowerCase())) {
+                  return null;
+                }
+                // Render all fields up to and including College as before
+                const isCollege = col.toLowerCase().includes('college');
+                if (!isCollege) {
+                  return (
+                    <div key={i}>
+                      <div className="user-card-row">
+                        <span className="user-card-label">{col.replace(/([A-Z])/g, ' $1').trim()}</span>
+                        <span className="user-card-value">
+                          {renderCellValue(user, col, idx)}
+                        </span>
+                      </div>
+                      {/* Add divider after college and before score */}
+                    </div>
+                  );
+                } else {
+                  // After college, render the divider and then the assignment table
+                  // Find assignment names, scores, and links
+                  const aNames = ['A1', 'A2', 'A3', 'A4'];
+                  const aScores = [user['S1'], user['S2'], user['S3'], user['S4']];
+                  const aLinks = [user['A1'], user['A2'], user['A3'], user['A4']];
+                  return (
+                    <div key={i}>
+                      <div className="user-card-row">
+                        <span className="user-card-label">{col.replace(/([A-Z])/g, ' $1').trim()}</span>
+                        <span className="user-card-value">
+                          {renderCellValue(user, col, idx)}
+                        </span>
+                      </div>
+                      <div className="section-divider"></div>
+                      {/* Assignment rows, styled like other card rows */}
+                      {[0,1,2,3].map(j => (
+                        <div className="user-card-row assignment-row-clean" key={j}>
+                          <span className="user-card-label assignment-label">{aNames[j]}</span>
+                          <span className="user-card-value assignment-value">
+                            {aLinks[j] && typeof aLinks[j] === 'string' && aLinks[j].startsWith('http') ? (
+                              <>
+                                <a className="modern-link" href={aLinks[j]} target="_blank" rel="noopener noreferrer">
+                                  {aLinks[j].replace(/^https?:\/\//, '').split(/[/?#]/)[0]}
+                                  <span className="link-icon" aria-label="external link">↗</span>
+                                </a>
+                                <span className="assignment-score-inline">{aScores[j] ? ` (${aScores[j]})` : ''}</span>
+                              </>
+                            ) : (
+                              <>
+                                {aLinks[j] || '-'}
+                                <span className="assignment-score-inline">{aScores[j] ? ` (${aScores[j]})` : ''}</span>
+                              </>
+                            )}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+              })}
             </div>
           ))}
         </div>
@@ -275,4 +305,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
