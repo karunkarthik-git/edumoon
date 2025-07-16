@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { fetchSheetData } from './utils/fetchSheetData';
+import { Link } from 'react-router-dom';
 
 
 
@@ -176,8 +177,11 @@ function App() {
   return (
     <div className="instagram-theme">
       <div className="header-bar">
-        <h1 className="main-title">📚 Edumoon Results</h1>
+        <h1 className="main-title">📚 Edumoon</h1>
         <div className="header-controls">
+          <Link to="/certificates" className="certificates-link">
+            <span className="certificates-text">Certificates</span>
+          </Link>
           <div className="search-bar-wrapper">
             <input
               className="search-bar"
