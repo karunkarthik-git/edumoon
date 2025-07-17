@@ -5,7 +5,6 @@ from internship_generator import generate_certificate
 def main():
     time = datetime.now()
     print(f"Script started at {time}")
-
     with open('source.json', 'r') as f:
         data = json.load(f)
     for item in data:
